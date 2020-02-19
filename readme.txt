@@ -48,6 +48,3 @@ For any questions - Please email me at DevOps@RajeshKumar.gxyz/
       <url>http://13.127.94.210:8081/artifactory/list/group/</url>
       <mirrorOf>*</mirrorOf>
     </mirror>
-    
-    
-
