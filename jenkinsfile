@@ -8,6 +8,7 @@ node {
       // **       in the global configuration.           
       mvnHome = tool 'maven'
    }
+   
    stage('Build') {
       // Run the maven build
       if (isUnix()) {
@@ -16,6 +17,7 @@ node {
          bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean compile/)
       }
    }
+   
   stage('UT') {
       // Run the maven build
       if (isUnix()) {
@@ -24,6 +26,7 @@ node {
          bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean test/)
       }
    }
+   
      stage('Pack') {
       // Run the maven build
       if (isUnix()) {
@@ -32,6 +35,7 @@ node {
          bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean package/)
       }
    }
+   
    stage('Results') {
       junit '**/target/surefire-reports/TEST-*.xml'
       archive 'target/*.jar'
