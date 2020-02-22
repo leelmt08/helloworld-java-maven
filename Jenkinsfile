@@ -9,27 +9,31 @@ node {
 	git  'https://github.com/leelmt08/helloworld-java-maven'
    }
    
-     stage('SonarQube Analysis') {
-        def mvnHome =  tool name: 'mvn3', type: 'maven'
-        withSonarQubeEnv('sonar7.5') { 
-          bat "${mvnHome}/bin/mvn sonar:sonar"
-        }
-    //}
-    
-     //stage("Quality Gate Status Check"){
-	 context="sonarqube/qualitygate"
-        setBuildStatus ("${context}", 'Checking Sonarqube quality gate', 'PENDING')
-          timeout(time: 1, unit: 'HOURS') {
-              def qg = waitForQualityGate()
-              if (qg.status != 'OK') {
-		       setBuildStatus ("${context}", "Sonarqube quality gate fail: ${qg.status}", 'FAILURE')
-                       error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              } 
-		  else {
-		      setBuildStatus ("${context}", "Sonarqube quality gate pass: ${qg.status}", 'SUCCESS')
-	      }
-          }
-      }    
+stage('SonarQube Analysis') {        
+def mvnHome =  tool name: 'mvn3', type: 'maven'        
+withSonarQubeEnv('sonar7.5') 
+{           
+bat "${mvnHome}/bin/mvn sonar:sonar"        
+}    
+
+
+context="sonarqube/qualitygate"        
+setBuildStatus ("${context}", 'Checking Sonarqube quality gate', 'PENDING')          
+timeout(time: 1, unit: 'HOURS') 
+{              
+def qg = waitForQualityGate()              
+if (qg.status != 'OK') 
+{         
+setBuildStatus ("${context}", "Sonarqube quality gate fail: ${qg.status}", 'FAILURE')
+error "Pipeline aborted due to quality gate failure: ${qg.status}"              
+}     
+else 
+{        
+setBuildStatus ("${context}", "Sonarqube quality gate pass: ${qg.status}", 'SUCCESS')       
+}          
+}      
+}
+}
 	     
     
 //      stage('Validate stage') {
