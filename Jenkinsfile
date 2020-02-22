@@ -52,8 +52,6 @@ try {
 	//	mail bcc: '', body: 'test success', cc: '', from: '', replyTo: '', subject: 'jenkins-test', to: 'leebhovi@gmail.com'
 	//	 }
  
- 
- 
  	stage ('Compile package'){
 	//Get mvn home path
 	//def mvnHome = tool name: 'mvn3', type: 'maven'
@@ -76,9 +74,8 @@ try {
     }
     
     stage ('Deploy') {
-        rtMaven.deployer.deployArtifacts //buildInfo
-        
-    rtMaven.deployer.deployArtifacts = true
+    rtMaven.deployer.deployArtifacts //buildInfo     
+    //rtMaven.deployer.deployArtifacts = true
     buildInfo = rtMaven.run pom: 'pom.xml', goals: 'clean compile install -DskipTests=true', buildInfo: buildInfo;
     }
     
