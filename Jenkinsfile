@@ -2,6 +2,7 @@ node {
     def server = Artifactory.server 'A3'
     //def rtGradle = Artifactory.newGradleBuild()
     def buildInfo
+    def context
 
 
   stage('SCM Checkout'){
@@ -18,11 +19,11 @@ node {
      stage("Quality Gate Status Check"){
 	 context="sonarqube/qualitygate"
         setBuildStatus ("${context}", 'Checking Sonarqube quality gate', 'PENDING')
-          timeout(time: 1, unit: 'MINUTES') {
+          timeout(time: 1, unit: 'HOURS') {
               def qg = waitForQualityGate()
               if (qg.status != 'OK') {
 		       setBuildStatus ("${context}", "Sonarqube quality gate fail: ${qg.status}", 'FAILURE')
-                                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                       error "Pipeline aborted due to quality gate failure: ${qg.status}"
               } else {
 		      setBuildStatus ("${context}", "Sonarqube quality gate pass: ${qg.status}", 'SUCCESS')
 	      }
