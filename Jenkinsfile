@@ -16,11 +16,16 @@ node {
     }
     
      stage("Quality Gate Status Check"){
-          timeout(time: 1, unit: 'HOURS') {
+	 context="sonarqube/qualitygate"
+        setBuildStatus ("${context}", 'Checking Sonarqube quality gate', 'PENDING')
+          timeout(time: 1, unit: 'MINUTES') {
               def qg = waitForQualityGate()
               if (qg.status != 'OK') {
+		       setBuildStatus ("${context}", "Sonarqube quality gate fail: ${qg.status}", 'FAILURE')
                                      error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              }
+              } else {
+		      setBuildStatus ("${context}", "Sonarqube quality gate pass: ${qg.status}", 'SUCCESS')
+	      }
           }
       }    
 	     
