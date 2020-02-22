@@ -2,7 +2,7 @@ node {
     def server = Artifactory.server 'A3'
     //def rtGradle = Artifactory.newGradleBuild()
     def buildInfo
-    def context
+   // def context
 
 
   stage('SCM Checkout'){
@@ -14,9 +14,9 @@ node {
         withSonarQubeEnv('sonar7.5') { 
           bat "${mvnHome}/bin/mvn sonar:sonar"
         }
-    }
+    //}
     
-     stage("Quality Gate Status Check"){
+     //stage("Quality Gate Status Check"){
 	 context="sonarqube/qualitygate"
         setBuildStatus ("${context}", 'Checking Sonarqube quality gate', 'PENDING')
           timeout(time: 1, unit: 'HOURS') {
@@ -24,7 +24,8 @@ node {
               if (qg.status != 'OK') {
 		       setBuildStatus ("${context}", "Sonarqube quality gate fail: ${qg.status}", 'FAILURE')
                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              } else {
+              } 
+		  else {
 		      setBuildStatus ("${context}", "Sonarqube quality gate pass: ${qg.status}", 'SUCCESS')
 	      }
           }
