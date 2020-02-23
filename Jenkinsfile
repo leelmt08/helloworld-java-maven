@@ -3,7 +3,6 @@ node {
     def buildInfo
     def rtMaven
 
-
   stage('SCM Checkout'){
 	git  'https://github.com/leelmt08/helloworld-java-maven'
    }
