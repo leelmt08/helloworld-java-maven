@@ -40,14 +40,14 @@
   
 <distributionManagement>
     <repository>
-        <id>sym</id>
-        <name>release softx</name>
-        <url>http://localhost:8081/repository/yella-local/</url>
+        <id>central</id>
+        <name>DEHEREMAP8485-releases</name>
+        <url>http://localhost:8081/artifactory/yella-local</url>
     </repository>
     <snapshotRepository>
-        <id>sym</id>
-        <name>snapshot softx</name>
-        <url>http://localhost:8081/repository/yella-local/</url>
+        <id>snapshots</id>
+        <name>DEHEREMAP8485-snapshots</name>
+        <url>http://localhost:8081/artifactory/yella-local</url>
     </snapshotRepository>
 </distributionManagement>
 
