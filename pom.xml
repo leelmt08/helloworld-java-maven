@@ -40,21 +40,21 @@
   
 <distributionManagement>
     <repository>
+	                            <snapshots>
+                                <enabled>false</enabled>
+					    </snapshots>
         <id>central</id>
-        <name>DEHEREMAP8485-releases</name>
+        <name>central</name>
         <url>http://localhost:8081/artifactory/yella-local</url>
     </repository>
     <snapshotRepository>
-        <id>snapshots</id>
-        <name>DEHEREMAP8485-snapshots</name>
+	          <snapshots>
+                                <enabled>true</enabled>
+                        </snapshots>
+        <id>central</id>
+        <name>central</name>
         <url>http://localhost:8081/artifactory/yella-local</url>
     </snapshotRepository>
 </distributionManagement>
-
-
-
-
-
-
-
+	
 </project>
